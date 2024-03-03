@@ -1,6 +1,16 @@
-#card-container {
+.quiz-container {
     height: 100vh;
+    background-color: rgba(13, 110, 253, 0.05);
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    margin-left: 20%;
+    gap: 8px;
 }
