@@ -14,3 +14,19 @@ nav {
     margin-left: 20%;
     gap: 8px;
 }
+
+.answer:hover {
+    cursor: pointer;
+    background-color: rgba(13, 110, 253, 0.05);
+}
+
+.answer-word {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.answer-word-selected {
+    background-color: rgba(0, 0, 0, 0.4);
+}

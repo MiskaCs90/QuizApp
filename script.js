@@ -89,3 +89,25 @@ let footballQuestions = [
         "right_answer": 2,
     },
 ];
+
+let currentQuestion = 0;
+
+function init() {
+    document.getElementById('questionsNumber').innerHTML = footballQuestions.length;
+
+    showQuestion();
+}
+
+function showQuestion() {
+    let footballQuestion = footballQuestions[currentQuestion];
+
+    document.getElementById('question').innerHTML = footballQuestion['question'];
+    document.getElementById('answer_1').innerHTML = footballQuestion['answer_1'];
+    document.getElementById('answer_2').innerHTML = footballQuestion['answer_2'];
+    document.getElementById('answer_3').innerHTML = footballQuestion['answer_3'];
+    document.getElementById('answer_4').innerHTML = footballQuestion['answer_4'];
+}
+
+function answer(selection) {
+    
+}
