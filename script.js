@@ -101,6 +101,7 @@ function init() {
 function showQuestion() {
     let footballQuestion = footballQuestions[currentQuestion];
 
+    document.getElementById('actualQuestion').innerHTML = currentQuestion + 1;
     document.getElementById('question').innerHTML = footballQuestion['question'];
     document.getElementById('answer_1').innerHTML = footballQuestion['answer_1'];
     document.getElementById('answer_2').innerHTML = footballQuestion['answer_2'];
@@ -109,5 +110,34 @@ function showQuestion() {
 }
 
 function answer(selection) {
-    
+    let footballQuestion = footballQuestions[currentQuestion];
+    let selectedQustionNumber = selection.slice(-1);
+    let idOfRightAnswer = `answer_${footballQuestion['right_answer']}`;
+
+    if (selectedQustionNumber == footballQuestion['right_answer']) {
+        document.getElementById(selection).parentNode.classList.add('bg-success');
+    } else {
+        document.getElementById(selection).parentNode.classList.add('bg-danger');
+        document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');
+    }
+
+    document.getElementById('next-button').disabled = false;
+}
+
+function nextQuestion() {
+    currentQuestion++;
+    document.getElementById('next-button').disabled = true;
+    resetAnswerButtons();
+    showQuestion();
+}
+
+function resetAnswerButtons() {
+    document.getElementById('answer_1').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer_1').parentNode.classList.remove('bg-success');
+    document.getElementById('answer_2').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer_2').parentNode.classList.remove('bg-success');
+    document.getElementById('answer_3').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer_3').parentNode.classList.remove('bg-success');
+    document.getElementById('answer_4').parentNode.classList.remove('bg-danger');
+    document.getElementById('answer_4').parentNode.classList.remove('bg-success');
 }
