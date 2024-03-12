@@ -34,3 +34,72 @@ nav {
 .bg-success, .bg-danger {
     color: white !important;
 }
+
+.endScreen {
+    min-height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    height: 100%;
+    width: 100%;
+    padding: 40px;
+}
+
+.endScreenBg {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(13, 110, 253, 0.05);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 16px;
+}
+
+.endScreen img {
+    padding: 16px;
+    height: 200px;
+}
+
+.endScreen h5 {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.endScreenTitel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.scoreTitel {
+    display: flex;
+    padding: 16px;
+    gap: 16px;
+}
+
+.yourScore {
+    color: rgb(13,110,253);
+}
+
+.score {
+    display: flex;
+}
+
+.share {
+    width: 150px;
+    color: white !important;
+    font-weight: bold !important;
+}
+
+.replay {
+    border: none !important;
+    width: 150px;
+    font-weight: bold !important
+}
+
+.replay:hover {
+    color: white !important;
+}

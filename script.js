@@ -99,14 +99,19 @@ function init() {
 }
 
 function showQuestion() {
-    let footballQuestion = footballQuestions[currentQuestion];
+    if (currentQuestion >= footballQuestions.length) {
+       document.getElementById('endScreen').style = '';
+       document.getElementById('questionScreen').style = 'display: none';
+    } else {
+        let footballQuestion = footballQuestions[currentQuestion];
 
-    document.getElementById('actualQuestion').innerHTML = currentQuestion + 1;
-    document.getElementById('question').innerHTML = footballQuestion['question'];
-    document.getElementById('answer_1').innerHTML = footballQuestion['answer_1'];
-    document.getElementById('answer_2').innerHTML = footballQuestion['answer_2'];
-    document.getElementById('answer_3').innerHTML = footballQuestion['answer_3'];
-    document.getElementById('answer_4').innerHTML = footballQuestion['answer_4'];
+        document.getElementById('actualQuestion').innerHTML = currentQuestion + 1;
+        document.getElementById('question').innerHTML = footballQuestion['question'];
+        document.getElementById('answer_1').innerHTML = footballQuestion['answer_1'];
+        document.getElementById('answer_2').innerHTML = footballQuestion['answer_2'];
+        document.getElementById('answer_3').innerHTML = footballQuestion['answer_3'];
+        document.getElementById('answer_4').innerHTML = footballQuestion['answer_4'];
+    }
 }
 
 function answer(selection) {
