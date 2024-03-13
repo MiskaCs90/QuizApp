@@ -6,6 +6,10 @@
     align-items: center;
 }
 
+.question-container {
+    width: 800px !important;
+}
+
 nav {
     display: flex;
     flex-direction: column;
@@ -106,4 +110,15 @@ nav {
 
 .progress-bar {
     border-radius: 0 !important;
+}
+
+@media (max-width: 767px) {
+    .nav {
+        flex-direction: row;
+        margin-left: 0;
+    }
+
+    .nav a {
+        margin-right: 32px;
+    }
 }
