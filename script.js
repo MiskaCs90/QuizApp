@@ -97,28 +97,36 @@ let AUDIO_FAIL = new Audio('audio/fail.mp3');
 
 function init() {
     document.getElementById('questionsNumber').innerHTML = footballQuestions.length;
-
     showQuestion();
 }
 
 function showQuestion() {
-    if (currentQuestion >= footballQuestions.length) {
-       document.getElementById('endScreen').style = '';
-       document.getElementById('questionScreen').style = 'display: none';
-
-       document.getElementById('amounthOfQuestions').innerHTML = footballQuestions.length;
-       document.getElementById('amounthOfRightQuestions').innerHTML = rightQuestions;
+    if (gameisOver()) {
+        showEndScreen();
     } else {
-       
-        let footballQuestion = footballQuestions[currentQuestion];
-
-        document.getElementById('actualQuestion').innerHTML = currentQuestion + 1;
-        document.getElementById('question').innerHTML = footballQuestion['question'];
-        document.getElementById('answer_1').innerHTML = footballQuestion['answer_1'];
-        document.getElementById('answer_2').innerHTML = footballQuestion['answer_2'];
-        document.getElementById('answer_3').innerHTML = footballQuestion['answer_3'];
-        document.getElementById('answer_4').innerHTML = footballQuestion['answer_4'];
+        showNextQuestion();
     }
+}
+
+function gameisOver() {
+    return currentQuestion >= footballQuestions.length;
+}
+
+function showEndScreen() {
+    document.getElementById('endScreen').style = '';
+    document.getElementById('questionScreen').style = 'display: none';
+    document.getElementById('amounthOfQuestions').innerHTML = footballQuestions.length;
+    document.getElementById('amounthOfRightQuestions').innerHTML = rightQuestions;
+}
+
+function showNextQuestion() {
+    let footballQuestion = footballQuestions[currentQuestion];
+    document.getElementById('actualQuestion').innerHTML = currentQuestion + 1;
+    document.getElementById('question').innerHTML = footballQuestion['question'];
+    document.getElementById('answer_1').innerHTML = footballQuestion['answer_1'];
+    document.getElementById('answer_2').innerHTML = footballQuestion['answer_2'];
+    document.getElementById('answer_3').innerHTML = footballQuestion['answer_3'];
+    document.getElementById('answer_4').innerHTML = footballQuestion['answer_4'];
 }
 
 function answer(selection) {
@@ -126,23 +134,35 @@ function answer(selection) {
     let selectedQustionNumber = selection.slice(-1);
     let idOfRightAnswer = `answer_${footballQuestion['right_answer']}`;
 
+    if (rightAnswerSelected(selectedQustionNumber)) {
+        answerIsRight();
+    } else {
+        answerIsFalse();
+    }
+    updateProgressBar();
+    document.getElementById('next-button').disabled = false;
+}
+
+function updateProgressBar() {
     let percent = (currentQuestion + 1) / footballQuestions.length;
     percent = Math.round(percent * 100);
-    
     document.getElementById('progressBar').style = `width: ${percent}%;`;
+}
 
+function rightAnswerSelected(selectedQustionNumber) {
+    return selectedQustionNumber == footballQuestion['right_answer']
+}
 
-    if (selectedQustionNumber == footballQuestion['right_answer']) {
-        document.getElementById(selection).parentNode.classList.add('bg-success');
-        rightQuestions++;
-        AUDIO_SUCCES.play();
-    } else {
-        document.getElementById(selection).parentNode.classList.add('bg-danger');
-        document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');
-        AUDIO_FAIL.play();
-    }
+function answerIsRight() {
+    document.getElementById(selection).parentNode.classList.add('bg-success');
+    rightQuestions++;
+    AUDIO_SUCCES.play();
+}
 
-    document.getElementById('next-button').disabled = false;
+function answerIsFalse() {
+    document.getElementById(selection).parentNode.classList.add('bg-danger');
+    document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');
+    AUDIO_FAIL.play();
 }
 
 function nextQuestion() {
@@ -166,10 +186,8 @@ function resetAnswerButtons() {
 function restartQuiz() {
     rightQuestions = 0;
     currentQuestion = 0;
-
     document.getElementById('progressBar').style = `width: 0%;`;
     document.getElementById('endScreen').style = 'display: none';
     document.getElementById('questionScreen').style = '';
-
     init();
 }
