@@ -90,6 +90,7 @@ let footballQuestions = [
     },
 ];
 
+let rightQuestions = 0;
 let currentQuestion = 0;
 
 function init() {
@@ -102,7 +103,11 @@ function showQuestion() {
     if (currentQuestion >= footballQuestions.length) {
        document.getElementById('endScreen').style = '';
        document.getElementById('questionScreen').style = 'display: none';
+
+       document.getElementById('amounthOfQuestions').innerHTML = footballQuestions.length;
+       document.getElementById('amounthOfRightQuestions').innerHTML = rightQuestions;
     } else {
+       
         let footballQuestion = footballQuestions[currentQuestion];
 
         document.getElementById('actualQuestion').innerHTML = currentQuestion + 1;
@@ -119,8 +124,15 @@ function answer(selection) {
     let selectedQustionNumber = selection.slice(-1);
     let idOfRightAnswer = `answer_${footballQuestion['right_answer']}`;
 
+    let percent = (currentQuestion + 1) / footballQuestions.length;
+    percent = Math.round(percent * 100);
+    
+    document.getElementById('progressBar').style = `width: ${percent}%;`;
+
+
     if (selectedQustionNumber == footballQuestion['right_answer']) {
         document.getElementById(selection).parentNode.classList.add('bg-success');
+        rightQuestions++;
     } else {
         document.getElementById(selection).parentNode.classList.add('bg-danger');
         document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');
@@ -145,4 +157,15 @@ function resetAnswerButtons() {
     document.getElementById('answer_3').parentNode.classList.remove('bg-success');
     document.getElementById('answer_4').parentNode.classList.remove('bg-danger');
     document.getElementById('answer_4').parentNode.classList.remove('bg-success');
+}
+
+function restartQuiz() {
+    rightQuestions = 0;
+    currentQuestion = 0;
+
+    document.getElementById('progressBar').style = `width: 0%;`;
+    document.getElementById('endScreen').style = 'display: none';
+    document.getElementById('questionScreen').style = '';
+
+    init();
 }
