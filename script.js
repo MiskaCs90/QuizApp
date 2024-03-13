@@ -135,9 +135,13 @@ function answer(selection) {
     let idOfRightAnswer = `answer_${footballQuestion['right_answer']}`;
 
     if (rightAnswerSelected(selectedQustionNumber)) {
-        answerIsRight();
+        document.getElementById(selection).parentNode.classList.add('bg-success');
+        rightQuestions++;
+        AUDIO_SUCCES.play();
     } else {
-        answerIsFalse();
+        document.getElementById(selection).parentNode.classList.add('bg-danger');
+        document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');
+        AUDIO_FAIL.play();
     }
     updateProgressBar();
     document.getElementById('next-button').disabled = false;
@@ -150,19 +154,8 @@ function updateProgressBar() {
 }
 
 function rightAnswerSelected(selectedQustionNumber) {
+    let footballQuestion = footballQuestions[currentQuestion];
     return selectedQustionNumber == footballQuestion['right_answer']
-}
-
-function answerIsRight() {
-    document.getElementById(selection).parentNode.classList.add('bg-success');
-    rightQuestions++;
-    AUDIO_SUCCES.play();
-}
-
-function answerIsFalse() {
-    document.getElementById(selection).parentNode.classList.add('bg-danger');
-    document.getElementById(idOfRightAnswer).parentNode.classList.add('bg-success');
-    AUDIO_FAIL.play();
 }
 
 function nextQuestion() {
@@ -186,8 +179,10 @@ function resetAnswerButtons() {
 function restartQuiz() {
     rightQuestions = 0;
     currentQuestion = 0;
+
     document.getElementById('progressBar').style = `width: 0%;`;
     document.getElementById('endScreen').style = 'display: none';
     document.getElementById('questionScreen').style = '';
+
     init();
 }
